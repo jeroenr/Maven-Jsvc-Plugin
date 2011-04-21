@@ -1,0 +1,1 @@
+package daemon.plugin.config;public class DaemonConfiguration {    /**     * @parameter     *      expression="${user}"     *      default-value="root"     * @readonly     */    private String daemonUser;    /**     * @parameter     *      expression="${delay}"     *      default-value=20     * @readonly     */    private long delayInMillis;}
