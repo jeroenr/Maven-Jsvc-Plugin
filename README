@@ -1,0 +1,29 @@
+This is a Maven plugin that builds installers using bootstrappers, commons-daemon and jsvc.
+
+Currently only the linux file system is supported.  An entry would looks like the following snippet with default values:
+
+  <build>
+    <plugins>
+      <plugin>
+      <artifactId>daemon-plugin</artifactId>
+      <groupId>jsvc-plugin</groupId>
+      ...
+      <configuration>
+            <application>
+              <name>${project.artifactId}</name>
+              <version>${project.version}</version>
+              <mainClass>${project.groupId}.Main</mainClass>
+              <scriptName>${project.artifactId}</scriptName>
+            </application>
+            <targetSystem>
+              <javaHome>/usr/lib/jvm/java-6-sun</javaHome>
+              <applicationJarLocation>/var/lib/${project.artifactId}</applicationJarLocation>
+              <daemonJarLocation>/usr/lib</daemonJarLocation>
+            </targetSystem>
+            <daemon>
+              <user>root</user>
+              <delay>20</delay>
+            </daemon>
+      </configuration>
+    </plugins>
+  </build>
