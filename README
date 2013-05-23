@@ -8,6 +8,14 @@ Currently only the linux file system is supported.  An entry would looks like th
 	      	<groupId>daemon-plugin</groupId>
 			<artifactId>jsvc-maven-plugin</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<executions>
+				<execution>
+					<phase>package</phase>
+					<goals>
+						<goal>daemonize</goal>
+					</goals>
+				</execution>
+			</executions>
 			<configuration>
 				<applicationConfiguration>
 					<name>${project.artifactId}</name>
