@@ -1,10 +1,6 @@
 package daemon.plugin.script;
 
-import java.text.MessageFormat;
 
-import lombok.extern.log4j.Log4j;
-
-@Log4j
 public class InitializationScript {
 	public static final String USER = "user";
 	public static final String APPLICATION_NAME = "applicationName";
@@ -28,7 +24,6 @@ public class InitializationScript {
 	}
 
 	public String getFileName() {
-		log.info(MessageFormat.format("obteniendo FileName: {0}", fileName));
 		return fileName;
 	}
 
