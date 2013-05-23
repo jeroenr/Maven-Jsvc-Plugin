@@ -1,4 +1,4 @@
-package daemon.plugin.config;
+package daemon.plugin.maven;
 
 public final class InitializationScriptConfiguration {
     private final ApplicationConfiguration applicationConfiguration;
