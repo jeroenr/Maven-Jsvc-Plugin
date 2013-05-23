@@ -3,38 +3,38 @@ This is a Maven plugin that builds installers using bootstrappers, commons-daemo
 Currently only the linux file system is supported.  An entry would looks like the following snippet with default values:
 
 <build>
-	<plugins>
-    	<plugin>
-	      	<groupId>daemon-plugin</groupId>
-			<artifactId>jsvc-maven-plugin</artifactId>
-			<version>1.0-SNAPSHOT</version>
-			<executions>
-				<execution>
-					<phase>package</phase>
-					<goals>
-						<goal>daemonize</goal>
-					</goals>
-				</execution>
-			</executions>
-			<configuration>
-				<applicationConfiguration>
-					<name>${project.artifactId}</name>
-					<version>${project.version}</version>
-					<mainClass>my.daemon.MyDaemon</mainClass>
-					<arguments>-t 4</arguments>
-					<scriptName>${project.artifactId}</scriptName>
-				</applicationConfiguration>
-				<targetSystemConfiguration>
-					<javaHome>/usr/lib/jvm/java-6-openjdk-amd64</javaHome>
-					<applicationJarLocation>/var/lib/${project.artifactId}</applicationJarLocation>
-					<daemonJarLocation>/usr/share/java</daemonJarLocation>
-				</targetSystemConfiguration>
-				<daemonConfiguration>
-					<daemonUser>root</daemonUser>
-					<delayInMillis>20</delayInMillis>
-				</daemonConfiguration>
-			</configuration>
-	  	</plugin>
-	</plugins>
+    <plugins>
+        <plugin>
+            <groupId>daemon-plugin</groupId>
+            <artifactId>jsvc-maven-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>daemonize</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <applicationConfiguration>
+                    <name>${project.artifactId}</name>
+                    <version>${project.version}</version>
+                    <mainClass>my.daemon.MyDaemon</mainClass>
+                    <arguments>-t 4</arguments>
+                    <scriptName>${project.artifactId}</scriptName>
+                </applicationConfiguration>
+                <targetSystemConfiguration>
+                    <javaHome>/usr/lib/jvm/java-6-openjdk-amd64</javaHome>
+                    <applicationJarLocation>/var/lib/${project.artifactId}</applicationJarLocation>
+                    <daemonJarLocation>/usr/share/java</daemonJarLocation>
+                </targetSystemConfiguration>
+                <daemonConfiguration>
+                    <daemonUser>root</daemonUser>
+                    <delayInMillis>20</delayInMillis>
+                </daemonConfiguration>
+            </configuration>
+        </plugin>
+    </plugins>
 </build>
 
