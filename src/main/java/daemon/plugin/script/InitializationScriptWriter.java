@@ -15,9 +15,9 @@ public class InitializationScriptWriter {
 	public void writeToExecutableFile(File outputDirectory) throws IOException {
 		File outputFile = new File(outputDirectory,
 		        initializationScript.getFileName());
-		outputFile.setExecutable(true);
-		outputFile.setReadable(true);
 		FileUtils.writeStringToFile(outputFile,
 		        initializationScript.getContentAsString());
+		outputFile.setExecutable(true);
+		outputFile.setReadable(true);
 	}
 }

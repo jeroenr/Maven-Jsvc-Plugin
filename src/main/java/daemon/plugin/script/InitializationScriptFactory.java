@@ -40,7 +40,7 @@ public class InitializationScriptFactory {
 		template.setAttribute(InitializationScript.APPLICATION_MAIN_CLASS,
 		        applicationConfiguration.getMainClass());
 		template.setAttribute(InitializationScript.APPLICATION_ARGUMENTS,
-		        applicationConfiguration.getMainClass());
+		        applicationConfiguration.getArguments());
 		template.setAttribute(
 		        InitializationScript.TARGET_SYSTEM_APPLICATION_LOCATION,
 		        targetSystemConfiguration.getApplicationJarLocation());

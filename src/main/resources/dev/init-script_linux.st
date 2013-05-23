@@ -31,8 +31,7 @@ start() {
     -errfile '&1' \
     -wait \$STARTUP_DELAY \
     -cp \$CLASSPATH \
-    $mainClass$
-    $applicationArguments$
+    $mainClass$ $applicationArguments$
     # To get a verbose JVM
     #-verbose \
     # To get a debug of jsvc.
