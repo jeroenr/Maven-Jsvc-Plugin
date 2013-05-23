@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.util.Map;
 
 import org.antlr.stringtemplate.StringTemplate;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
@@ -22,31 +21,41 @@ import daemon.plugin.script.InitializationScriptWriter;
 /**
  * Currently only the linux file system is supported.  An entry would looks like the following snippet with default values:
  * <pre>
- *   <build>
- *     <plugins>
- *       <plugin>
- *       <artifactId>daemon-plugin</artifactId>
- *       <groupId>jsvc-plugin</groupId>
- *       ...
- *       <configuration>
- *             <application>
- *               <name>${project.artifactId}</name>
- *               <version>${project.version}</version>
- *               <mainClass>${project.groupId}.Main</mainClass>
- *               <scriptName>${project.artifactId}</scriptName>
- *             </application>
- *             <targetSystem>
- *               <javaHome>/usr/lib/jvm/java-6-sun</javaHome>
- *               <applicationJarLocation>/var/lib/${project.artifactId}</applicationJarLocation>
- *               <daemonJarLocation>/usr/lib</daemonJarLocation>
- *             </targetSystem>
- *             <daemon>
- *               <user>root</user>
- *               <delay>20</delay>
- *             </daemon>
- *       </configuration>
- *     </plugins>
- *   </build>
+ * 	<build>
+ *	  <plugins>
+ *   	<plugin>
+ *	      	<groupId>daemon-plugin</groupId>
+ *			<artifactId>jsvc-maven-plugin</artifactId>
+ *			<version>1.0-SNAPSHOT</version>
+ *			<executions>
+ * 				<execution>
+ * 					<phase>package</phase>
+ *					<goals>
+ *						<goal>daemonize</goal>
+ *					</goals>
+ *				</execution>
+ *			</executions>
+ *			<configuration>
+ *				<applicationConfiguration>
+ *					<name>${project.artifactId}</name>
+ *					<version>${project.version}</version>
+ *					<mainClass>my.daemon.MyDaemon</mainClass>
+ *					<arguments>-t 4</arguments>
+ *					<scriptName>${project.artifactId}</scriptName>
+ *				</applicationConfiguration>
+ *				<targetSystemConfiguration>
+ *					<javaHome>/usr/lib/jvm/java-6-openjdk-amd64</javaHome>
+ *					<applicationJarLocation>/var/lib/${project.artifactId}</applicationJarLocation>
+ *					<daemonJarLocation>/usr/share/java</daemonJarLocation>
+ *				</targetSystemConfiguration>
+ *				<daemonConfiguration>
+ *					<daemonUser>root</daemonUser>
+ *					<delayInMillis>20</delayInMillis>
+ *				</daemonConfiguration>
+ *			</configuration>
+ *	  	</plugin>
+ *		</plugins>
+ * 	</build>   
  * </pre>
  */
 
@@ -100,21 +109,12 @@ public class JsvcMojo extends AbstractMojo {
 			throw new MojoExecutionException(
 			        "Could not retrieve commons-daemon artifact");
 
-		InitializationScriptConfiguration initializationScriptConfiguration = null;
-		try {
-			final File file = artifact.getFile();
-			final String daemonJarFileName = file.getName();
+		final File file = artifact.getFile();
+		final String daemonJarFileName = file.getName();
 
-			initializationScriptConfiguration = new InitializationScriptConfiguration(
-			        applicationConfiguration, daemonConfiguration,
-			        targetSystemConfiguration, daemonJarFileName);
-
-			FileUtils.copyFileToDirectory(file, projectBuildDirectory);
-		} catch (IOException e) {
-			throw new MojoExecutionException(String.format(
-			        "Failed to copy artifact [%s] to [%s]", artifact,
-			        projectBuildDirectory), e);
-		}
+		InitializationScriptConfiguration initializationScriptConfiguration = new InitializationScriptConfiguration(
+		        applicationConfiguration, daemonConfiguration,
+		        targetSystemConfiguration, daemonJarFileName);
 
 		final StringTemplate stringTemplate = loadInitScriptTemplate();
 
@@ -146,5 +146,4 @@ public class JsvcMojo extends AbstractMojo {
 		}
 
 	}
-
 }
